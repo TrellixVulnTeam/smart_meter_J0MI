@@ -2,12 +2,12 @@
 
 ## Remote Web Server Installation/Setup:
 - 1. Clone repo ( https://github.com/jennythakkar/smart_meter )
-- 2. cd into WebServer directory
+- 2. cd into the expressjs-backend directory
   - Delete node_modules folder and package-lock.json file
   - Run "npm install" to get project dependencies
 - 3. Run node index.js - This begins running the Web Server backend
   - " Listening on port 3001" should appear in terminal
-- 4. In a separate terminal window, cd into the WebServer, then into testapp
+- 4. In a separate terminal window, cd into the reactjs-frontend directory, then into testapp
   - run npm install for front-end dependencies
 - 5. Run npm start - launches front end interface
   - Check first terminal window for console log statements to verify connection
