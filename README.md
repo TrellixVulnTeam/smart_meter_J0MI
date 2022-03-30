@@ -7,7 +7,7 @@
   - Run "npm install" to get project dependencies
 - 3. Run node index.js - This begins running the Web Server backend
   - " Listening on port 3001" should appear in terminal
-- 4. In a separate terminal window, cd into the reactjs-frontend directory, then into testapp
+- 4. In a separate terminal window, cd into the reactjs-frontend directory
   - run npm install for front-end dependencies
 - 5. Run npm start - launches front end interface
   - Check first terminal window for console log statements to verify connection
