@@ -1,5 +1,9 @@
+/* 
+    First two lines create an express.js application
+*/
 const express = require('express');
 const app = express();
+
 var bodyParser = require('body-parser')
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -8,11 +12,21 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
 
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').verbose(); //import sqlite modulerespon
 const user_db = new sqlite3.Database('users_db');
-const meter_db = new sqlite3.Database('meters_db');
+const meters_db = new sqlite3.Database('meters_db');
 
+/*
+    Creates 2 databases, user_db and meters_dbs
+*/
+function setup_databases(){
+    //user_db.run('CREATE TABLE [IF NOT EXISTS] users( user_name TEXT NOT NULL UNIQUE, password TEXT NOT NULL, first_name TEXT NOT NULL,	last_name TEXT NOT NULL. ip_address TEXT NOT NULL)');
+    //user_db.run("INSERT INTO users(user_name, password, first_name, last_name) VALUES('jthakka1', 'abc123', 'jennifer', 'thakkar')");
 
+    //meters_db.run('CREATE TABLE [IF NOT EXISTS] meters( id INTEGER PRIMARY KEY AUTOINCREMENT, meter_ip INT NOT NULL, active TEXT NOT NULL, first_name TEXT NOT NULL, last_name TEXT NOT NULL)');
+}
+
+setup_databases();
 
 if (process.platform === "win32") { //Handles keyboard interrupted exit
     var rl = require("readline").createInterface({
@@ -38,7 +52,7 @@ app.get('/', (req, res) => {
 });
 
 
-{//Authenitcation
+{ //Authentication
     app.get('/getUsers', (req, res) => {
         console.log("Got a request for user data")
         var data = new Array();
@@ -100,7 +114,7 @@ app.get('/', (req, res) => {
                 }
             }
         }, function(){
-            if(usernameExists == false){//Should not announce this since it confirms/denies usernames exist
+            if(usernameExists == false){ //Should not announce this since it confirms/denies usernames exist
                 res.json({error: "Incorrect Username"})
             }else{
                 res.json(data[0]);
@@ -119,6 +133,7 @@ app.get('/', (req, res) => {
             res.json(data);
         });
     })
+    /*
     app.post('/meterToUser', (req, res) => {
         console.log('Meter/User map update');
         user_db.run("CREATE TABLE IF NOT EXISTS meter_map(userID integer, meterID integer, longitude float, latitude float)");
@@ -180,14 +195,14 @@ app.get('/', (req, res) => {
 app.post('/toggleSimMeter', (req, res) => {
     console.log("toggle sim meter");
     var data = new Array();
-    meter_db.each("SELECT active FROM meters WHERE id=?", req.body.meter, (err, row) => {
+    meters_db.each("SELECT active FROM meters WHERE id=?", req.body.meter, (err, row) => {
         data.push(row);
     }, function(){
         if(data.length === 1){
             if(data[0].active == 'running'){
-                meter_db.run("UPDATE meters SET active='stopped' WHERE id=?", req.body.meter);
+                meters_db.run("UPDATE meters SET active='stopped' WHERE id=?", req.body.meter);
             }else{
-                meter_db.run("UPDATE meters SET active='running' WHERE id=?", req.body.meter);
+                meters_db.run("UPDATE meters SET active='running' WHERE id=?", req.body.meter);
             }
             res.send({result: "SUCCESS"});
         }else{
@@ -197,13 +212,13 @@ app.post('/toggleSimMeter', (req, res) => {
 
 });
 app.post('/addSimMeter', (req, res) => {
-    meter_db.run("INSERT INTO meters(meterIP, active, phys) VALUES(?,'stopped', ?);", req.body.ip_address, req.body.phys);
+    meters_db.run("INSERT INTO meters(meterIP, active, phys) VALUES(?,'stopped', ?);", req.body.ip_address, req.body.phys);
     res.send({result: "SUCCESS"});
 })
 
 // addPhysicalMeter TODO
 app.post('/addPhysMeter', (req, res) => {
-    meter_db.run("INSERT INTO meters(meterIP, active, phys) VALUES(?,'stopped', ?);", req.body.ip_address, req.body.phys);
+    meters_db.run("INSERT INTO meters(meterIP, active, phys) VALUES(?,'stopped', ?);", req.body.ip_address, req.body.phys);
     res.send({result: "SUCCESS"});
 })
 
@@ -211,7 +226,7 @@ app.get('/getMeterList', (req, res) => {
     console.log("Got a request for meter data")
     var data = new Array();
 
-    meter_db.each('SELECT * FROM meters', (err, row) => {
+    meters_db.each('SELECT * FROM meters', (err, row) => {
         data.push(row);
     }, function(){
         res.json(data);
@@ -220,7 +235,7 @@ app.get('/getMeterList', (req, res) => {
 
 app.get('/deleteAllMeters', (req, res) => {
     console.log("Got request to delete meter data")
-    meter_db.run("DELETE FROM meters");
+    meters_db.run("DELETE FROM meters");
     res.send({result: "SUCCESS"});
 })
 
@@ -240,7 +255,7 @@ app.post('/deleteMeterData', (req, res) => {
     const meterx_db = new sqlite3.Database('meter' + req.body.meter_id + '_db');
     meterx_db.run('DELETE FROM data');
     res.send({result: "SUCCESS"});
-})
+})*/
 
 }
 

@@ -98,11 +98,5 @@ def main():
                 for user in test_users:
                     result = insert_data(connection, insert_user_string, user)
                     print(result)
-        
-        
-
-
-    
-
 
 main()
