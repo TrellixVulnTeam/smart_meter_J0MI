@@ -176,7 +176,6 @@ app.get('/', (req, res) => {
 }
 
 {//Meter Communication
-
 app.post('/toggleSimMeter', (req, res) => {
     console.log("toggle sim meter");
     var data = new Array();
@@ -196,10 +195,6 @@ app.post('/toggleSimMeter', (req, res) => {
     });
 
 });
-app.post('/addSimMeter', (req, res) => {
-    meter_db.run("INSERT INTO meters(meterIP, active, phys) VALUES(?,'stopped', ?);", req.body.ip_address, req.body.phys);
-    res.send({result: "SUCCESS"});
-})
 
 // addPhysicalMeter TODO
 app.post('/addPhysMeter', (req, res) => {
@@ -253,14 +248,7 @@ process.on('SIGINT', function(){
     process.exit();
 })
 
+
 app.listen(3001, () => {
     console.log('Listening on port 3001')
-    /*
-    const spawn = require("child_process").spawn;
-    var proc = spawn('python', ['./sim_meter.py'], {shell: true, detached: true});
-    proc.stdout.on('data', function(data){
-        console.log(data.toString());
-    })
-    sim_meter_proc = proc;
-    */
 });

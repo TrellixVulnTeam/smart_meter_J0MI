@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import json
 import random
+
 class Meter:
     """
     id = Database ID of the meter
@@ -10,12 +11,10 @@ class Meter:
     meterType = (low, medium, high) Adjustment to the range of values the meter will produce
     """
 
-    def __init__(self, id, ip, active = "running", meterType = "medium"):
+    def __init__(self, id, ip, active = "running"):
         self.id = id
         self.ip = ip
         self.active = active
-        self.meterType = meterType
-
 
         #Setup the database for this meter
         self.dbString = "meter" + str(id) + "_db"
@@ -46,6 +45,7 @@ class Meter:
         self.conn.row_factory = sqlite3.Row
         rows = self.conn.cursor().execute(sql_string).fetchall()
         return json.dumps([dict(ix) for ix in rows])
+
     def deleteAllData(self):
         sql_string = "DELETE FROM data"
         self.conn.cursor().execute(sql_string)

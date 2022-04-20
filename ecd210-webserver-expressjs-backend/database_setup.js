@@ -1,13 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('test_database2');
+const db = new sqlite3.Database('users_database');
 
 /*
-
 This function sets up the table in the database to hold user info
-
 For testing purposing - a user is inserted. In reality this would all be created through the website
-
 */
+
 function setup(){
     db.run('CREATE TABLE [IF NOT EXISTS] users(
 		user_name TEXT NOT NULL, 

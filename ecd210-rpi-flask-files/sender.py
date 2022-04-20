@@ -1,11 +1,11 @@
 # Program file for Sender Module of Local Operations System
-# ECD109
-# Denis Nakazawa
+# ECD210
+# Jennifer Thakkar
 
-import socket
+import requests
 
-def establish_connection():
-    web_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = '000.000.0.000'
-    port = 0000
-    web_socket.connect((host, port))
+ngrok_sender_var = https://f2f7-2603-7081-5b02-8741-4158-c8f9-f6da-a1f4.ngrok.io/
+
+file = open('data.json', 'rb').read()
+# headers?
+x = requests.post(url, data=contents);

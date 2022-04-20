@@ -7,15 +7,10 @@ import socket
 import sqlite3
 import time
 
-from energy_information_database import *
-from pca_vers_2 import *
-#from sender_receiver_flask_server import *
 
 sleep_time = (1 * 60) # 1 minute
     
 def main():
-    create_database_table()
-    los_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
     while True:
         pca_calculation_values = get_energy_information()
