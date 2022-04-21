@@ -12,8 +12,6 @@ const sqlite3 = require('sqlite3').verbose();
 const user_db = new sqlite3.Database('users_db');
 const meter_db = new sqlite3.Database('meters_db');
 
-
-
 if (process.platform === "win32") { //Handles keyboard interrupted exit
     var rl = require("readline").createInterface({
       input: process.stdin,

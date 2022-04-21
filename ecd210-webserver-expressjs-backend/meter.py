@@ -1,3 +1,7 @@
+# Program file for meter class and related functions on remote server
+# ECD210
+# Jennifer Thakkar
+
 import sqlite3
 from sqlite3 import Error
 import json
@@ -15,6 +19,7 @@ class Meter:
         self.id = id
         self.ip = ip
         self.active = active
+        self.user_name = 'username'
 
         #Setup the database for this meter
         self.dbString = "meter" + str(id) + "_db"
@@ -33,13 +38,15 @@ class Meter:
         finally:
             return conn
     def createTable(self):
-        sql_string = "CREATE TABLE IF NOT EXISTS data(timestamp, realPowerMin NOT NULL, realPowerMax NOT NULL, realPowerAvg NOT NULL, reactivePowerMin NOT NULL, reactivePowerMax NOT NULL, reactivePowerAvg NOT NULL, voltageMin NOT NULL, voltageMax NOT NULL, voltageAvg NOT NULL, currentMin NOT NULL, currentMax NOT NULL, currentAvg NOT NULL, energy NOT NULL);"
+        sql_string = "CREATE TABLE IF NOT EXISTS data(meter_id INTEGER, user_name TEXT NOT NULL, realPowerMin NOT NULL, realPowerMax NOT NULL, realPowerAvg NOT NULL, reactivePowerMin NOT NULL, reactivePowerMax NOT NULL, reactivePowerAvg NOT NULL, voltageMin NOT NULL, voltageMax NOT NULL, voltageAvg NOT NULL, currentMin NOT NULL, currentMax NOT NULL, currentAvg NOT NULL, longitude NOT NULL, latitude NOT NULL);"
         c = self.conn.cursor()
         c.execute(sql_string)
 
-    def insertData(self, timeStamp, realPowerMin, realPowerMax, realPowerAvg, reactivePowerMin, reactivePowerMax,reactivePowerAvg, voltageMin, voltageMax, voltageAvg, currentMin, currentMax, currentAvg, energy):
-        sql_string = "INSERT INTO data(timestamp, realPowerMin, realPowerMax, realPowerAvg, reactivePowerMin, reactivePowerMax, reactivePowerAvg, voltageMin, voltageMax, voltageAvg, currentMin, currentMax, currentAvg, energy) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+    # The file that gets the data from Sabrina's database will call this function. 
+    def insertData(self, timeStamp, realPower, apparentPower, voltage, current):
+        sql_string = "INSERT INTO data(self.id, self.user_name, realPowerMin, realPowerMax, realPowerAvg, reactivePowerMin, reactivePowerMax, reactivePowerAvg, voltageMin, voltageMax, voltageAvg, currentMin, currentMax, currentAvg, longitude, latitude)"
         self.conn.cursor().execute(sql_string, (timeStamp, realPowerMin, realPowerMax, realPowerAvg, reactivePowerMin, reactivePowerMax,reactivePowerAvg, voltageMin, voltageMax, voltageAvg, currentMin, currentMax, currentAvg, energy))
+
     def getData(self, timeStamp):
         sql_string = "SELECT * FROM data"
         self.conn.row_factory = sqlite3.Row
@@ -48,41 +55,3 @@ class Meter:
 
     def deleteAllData(self):
         sql_string = "DELETE FROM data"
-        self.conn.cursor().execute(sql_string)
-
-    def generateData(self, timeStamp):
-        #Average Monthly Household Energy = 1,000,000 Wh = 3600000000 Joules
-        #Average Household Power = 1370W
-        #Average Energy Per Five Minutes= 411000 Joules = 114 Wh
-        if(self.active):
-            time = timeStamp
-            energy = 114 + random.randrange(-20,20)
-            realPower = 1370 + random.randrange(-200, 200)
-            realPowerMin = realPower - random.randrange(0,200)
-            realPowerMax = realPower + random.randrange(0,200)
-            reactivePower = 800 + random.randrange(-200, 200)
-            reactivePowerMin = reactivePower - random.randrange(0,200)
-            reactivePowerMax = reactivePower + random.randrange(0,200)
-            voltage = 120 + random.randrange(-5, 5)
-            voltageMin = voltage - random.randrange(0, 5)
-            voltageMax = voltage + random.randrange(0, 5)
-            current = float(realPower) / float(voltage)
-            currentMin = float(realPowerMin) / float(voltageMin)
-            currentMax = float(realPowerMax) / float(voltageMax)
-            self.insertData(time, realPowerMin, realPowerMax, realPower, reactivePowerMin, reactivePowerMax, reactivePower, voltageMin, voltageMax, voltage, currentMin, currentMax, current, energy)
-        else:
-            time = timeStamp
-            energy = 0
-            realPower = 0
-            realPowerMin = 0
-            realPowerMax = 0
-            reactivePower = 0
-            reactivePowerMin = 0
-            reactivePowerMax = 0
-            voltage = 0
-            voltageMin = 0
-            voltageMax = 0
-            current = 0
-            currentMin = 0
-            currentMax = 0
-            self.insertData(time, realPowerMin, realPowerMax, realPower, reactivePowerMin, reactivePowerMax, reactivePower, voltageMin, voltageMax, voltage, currentMin, currentMax, current, energy)

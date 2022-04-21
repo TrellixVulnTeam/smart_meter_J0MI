@@ -53,7 +53,7 @@ class GoogleMapContainer extends Component{
             const ret_data2 = await api_call.json();
             var index = -1;
             for(var j = 0; j < ret_data2.length; j++){//Find the index to display by locating the start point using its timestamp
-                if(ret_data2[j].timestamp == this.state.mapDataStart){
+                if(ret_data2[j].timestamp === this.state.mapDataStart){
                     index=j;
                     break;
                 }
@@ -62,7 +62,7 @@ class GoogleMapContainer extends Component{
             if(index >= ret_data2.length){
                 index = -1;
             }
-            if(index != -1){
+            if(index !== -1){
                 var dataPoint = {
                     lat: ret_data1[i].latitude,
                     lng: ret_data1[i].longitude,
