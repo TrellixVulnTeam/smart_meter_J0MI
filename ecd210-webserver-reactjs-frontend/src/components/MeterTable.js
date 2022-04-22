@@ -220,7 +220,6 @@ class MeterTable extends Component{
                       <th>Current Min</th>
                       <th>Current Max</th>
                       <th>Current Avg</th>
-                      <th>Energy</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -241,7 +240,6 @@ class MeterTable extends Component{
                               <td>{e.currentMin}</td>
                               <td>{e.currentMax}</td>
                               <td>{e.currentAvg}</td>
-                              <td>{e.energy}</td>
                             </tr>
                           )
                         }

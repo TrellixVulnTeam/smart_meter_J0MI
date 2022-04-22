@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ConsumerInterfaceSubSection from './ConsumerInterfaceSubSection'
+import MeterTableConsumer from './MeterTableConsumer'
 class ConsumerInterface extends Component{
     constructor(props){
         super(props);
@@ -55,6 +56,7 @@ class ConsumerInterface extends Component{
                   <div>
                     <ConsumerInterfaceSubSection meterID = {i+1} data = {e}/>
                     <div style = {{minHeight: "10px"}}/>
+		    <MeterTableConsumer setParentState = {this.updateState} server = {this.props.server}/>
                   </div>
                 )
               })}
