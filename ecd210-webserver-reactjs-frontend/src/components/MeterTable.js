@@ -211,9 +211,9 @@ class MeterTable extends Component{
                       <th>Real Power Min</th>
                       <th>Real Power Max</th>
                       <th>Real Power Avg</th>
-                      <th>Reactive Power Min</th>
-                      <th>Reactive Power Max</th>
-                      <th>Reactive Power Avg</th>
+                      <th>Apparent Power Min</th>
+                      <th>Apparent Power Max</th>
+                      <th>Apparent Power Avg</th>
                       <th>Voltage Min</th>
                       <th>Voltage Max</th>
                       <th>Voltage Avg</th>

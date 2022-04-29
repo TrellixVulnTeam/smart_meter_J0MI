@@ -58,7 +58,7 @@ class App extends Component {
           <div className = "App">
             <Header/>
             <br/>
-            <ConsumerInterface userID = {this.state.userID} server = {SERVER}/>
+            <ConsumerInterface userID = {SERVER}/>
           </div>
         </Router>
       )

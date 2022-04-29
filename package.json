@@ -1,0 +1,19 @@
+{
+  "name": "smart_meter",
+  "version": "1.0.0",
+  "description": "## Remote Web Server Installation/Setup: - 1. Clone repo ( https://github.com/jennythakkar/smart_meter ) - 2. cd into the expressjs-backend directory   - Delete node_modules folder and package-lock.json file   - Run \"npm install\" to get project dependencies - 3. Run node index.js - This begins running the Web Server backend   - \" Listening on port 3001\" should appear in terminal - 4. In a separate terminal window, cd into the reactjs-frontend directory   - run npm install for front-end dependencies - 5. Run npm start - launches front end interface   - Check first terminal window for console log statements to verify connection",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jennythakkar/smart_meter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jennythakkar/smart_meter/issues"
+  },
+  "homepage": "https://github.com/jennythakkar/smart_meter#readme"
+}
