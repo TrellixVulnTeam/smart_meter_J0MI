@@ -66,4 +66,3 @@ The remote server is broken up into 2 different parts:
 
 External Notes:
 - Not all the files uploaded to the Project_Data folder correctly. My assumption is its just some of the node_modules. It gets deleted and reinstalled anyway so it's fine.
-- There were some last minute changes I had in my local version of the repo that may not be fully updated. You can check the github for them but it shouldn't be that big of an issue in terms of running the entire system.
